@@ -20,7 +20,7 @@ GROUND_Y = SCREEN_HEIGHT - 20.0
 
 ESSAY_X = 80.0
 ESSAY_SIZE = 24.0
-GRAVITY = 950.0  # px/s^2
+GRAVITY = -950.0  # px/s^2
 FLAP_VELOCITY = -260.0  # px/s, negative is upward
 
 GRASS_WIDTH = 60.0
