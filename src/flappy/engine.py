@@ -20,7 +20,7 @@ GROUND_Y = SCREEN_HEIGHT - 20.0
 
 ESSAY_X = 80.0
 ESSAY_SIZE = 24.0
-GRAVITY = -950.0  # px/s^2
+GRAVITY = 950.0  # px/s^2
 FLAP_VELOCITY = -260.0  # px/s, negative is upward
 
 GRASS_WIDTH = 60.0
@@ -52,7 +52,7 @@ def initial_state(rng, num_grass=NUM_GRASS):
 def apply_gravity(essay, flap):
     """One tick of vertical physics. A flap overrides velocity outright;
     otherwise gravity accelerates the essay downward."""
-    velocity = FLAP_VELOCITY if flap else essay.velocity - GRAVITY * FIXED_DT
+    velocity = FLAP_VELOCITY if flap else essay.velocity + GRAVITY * FIXED_DT
     return Essay(y=essay.y + velocity * FIXED_DT, velocity=velocity)
 
 
@@ -66,7 +66,7 @@ def out_of_bounds(essay):
     return essay.y < 0 or essay.y + ESSAY_SIZE >= GROUND_Y
 
 
-def collides(essay, grass):
+def collides(essay, grass: tuple[Grass, ...]):
     """Axis-aligned bounding-box collision between the essay and any grass
     it currently overlaps horizontally. Deliberately not pixel-perfect
     collision: that would need image data inside this otherwise-pure
@@ -78,7 +78,7 @@ def collides(essay, grass):
             continue
         gap_top = patch.gap_y - patch.gap_height / 2
         gap_bottom = patch.gap_y + patch.gap_height / 2
-        if essay_top < gap_top and essay_bottom > gap_bottom:
+        if essay_top < gap_top or essay_bottom > gap_bottom:
             return True
     return False
 
