@@ -135,3 +135,10 @@ def test_a_full_game_from_a_fixed_seed_runs_without_error() -> None:
             break
     assert state.status is GameStatus.CRASHED
     assert state.score >= 0
+
+
+def test_initial_state_uses_multiple_themes() -> None:
+    state = initial_state(random.Random(42))
+    themes = {g.theme for g in state.grass}
+    assert len(themes) > 1
+

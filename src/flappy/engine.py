@@ -38,7 +38,7 @@ def initial_state(rng, num_grass=NUM_GRASS):
     x = SCREEN_WIDTH + 100.0
     for _ in range(num_grass):
         gap_y = rng.uniform(GRASS_GAP, GROUND_Y - GRASS_GAP)
-        theme = THEMES[0]
+        theme = rng.choice(THEMES)
         grass.append(Grass(x=x, gap_y=gap_y, gap_height=GRASS_GAP, theme=theme.name))
         x += GRASS_SPACING
     return GameState(
